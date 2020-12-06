@@ -16,22 +16,22 @@ canvas{
 
 #buttonH{
     position: absolute;
-    right: 568px;
-    bottom: 290px;
-    width: 60px;
-    height: 40px;
+    right: 1373px;
+    bottom: 490px;
+    width: 180px;
+    height: 140px;
     z-index: 12;
     display: none;
-    opacity: 1;
+    opacity: 0;
 }
 
 #buttonP{
     position: absolute;
-    right: 168px;
+    right: 173px;
     bottom: 490px;
-    width: 160px;
+    width: 180px;
     height: 140px;
     z-index: 13;
-    opacity: 1;
+    opacity: 0;
 
 }

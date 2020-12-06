@@ -35,9 +35,14 @@ let buttonRefHome = new Image()
 //     console.log('hi')
 // })
 
-
+let holod = 0
 let bomjX = 0
 let bomjY = 0
+
+const holodUp = function(){
+    if
+}
+
 
 const location1 = function(){
     if(home === true){

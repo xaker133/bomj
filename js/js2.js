@@ -50,6 +50,7 @@ bomj.src = "img/bomj.png"
 
 
 //--- добавление кнопок
+const meloch = document.getElementById("meloch")
 const buttonPerehod = document.getElementById('buttonP')
 const buttonHome = document.getElementById('buttonH')
 //--- добавление src кнопок
@@ -59,26 +60,97 @@ bottonPerehodImg.src = "img/buttonRef.png"
 
 let timeLocation = 0
 // -- кнопки действие 
-buttonPerehod.addEventListener("click",function () {
+
+
+
+
+let money = 0
+
+// --холод переменная 
+
+let holod = 0
+
+let holodMove = 0
+ 
+
+
+meloch.addEventListener("click", function(){
+    
+})
+
+
+
+
+buttonHome.addEventListener("click", function (){ // пойти домой через переход и выключить холод, холод остается на том уровне на котором был
+    // windows.src = "img/idemkperehody.jpg"
+    setTimeout(() =>{
+        windows.src = "img/korobka.jpg"
+        bomjRightLeft = 0
+        bottonPerehodImg.src = "img/buttonRef.png"
+    },3000)
+        
+        let sPerehoda = setInterval(()=>{
+            bomjRightLeft -=5
+            timeLocation -= 1
+            if(timeLocation  == 0){
+                clearInterval(sPerehoda)
+            }
+        },10)
+
+        bottonHomeImg.src = ""
+        buttonHome.style.display = "none"
+        buttonPerehod.style.display = 'block'
+        windows.src = "img/idemkperehody.jpg"
+        holodMove = 1
+    })
+
+
+
+buttonPerehod.addEventListener("click",function () { // пойти в переход и запустить действия, в частности холод 
     windows.src = "img/idemkperehody.jpg"
-    if(timeLocation <= 5){
-        setInterval(() =>{
+        setTimeout(() =>{
             windows.src = "img/perehod.jpg"
-            bomjRightLeft = 600
+            bomjRightLeft = 650
+            holodUp()
+            bottonHomeImg.src = "img/buttonRefHome.png"
+            buttonHome.style.display = "block"
+            holodMove = 0
         },3000)
-    }
+        
     bottonPerehodImg.src = ""
     // windows.src = "img/perehod.jpg"
     bomjRightLeft = 600
-    let suka = setInterval(()=>{
+    let vPerehod = setInterval(()=>{
         bomjRightLeft +=5
-        if(bomjRightLeft == 650){
-            suka(clearInterval)
+        timeLocation += 1
+        if(timeLocation  == 300){
+            clearInterval(vPerehod)
         }
     },10)
     buttonPerehod.style.display = 'none'
 })
 
+
+// --холод 
+
+
+
+
+function holodUp() {
+    console.log(holod)
+        const intervalHolod = setInterval(() => {
+            console.log(holod)
+            holod += 1
+            if(holod === 100){
+                alert('БОМЖ ПОГИБ')
+                clearInterval(intervalHolod)
+            }if(holodMove === 1){
+                clearInterval(intervalHolod)
+            }
+        }, 100);
+   }
+
+    
 
 
 // --- добавление размеры бомжа
@@ -104,7 +176,7 @@ const walkBomj = setInterval(() =>{
     if(walk <= 5){
         walk++
     }
-    console.log(walk)
+    // console.log(walk)
     bomjRightLeft -= 1
     if(walk >= 5){
         for(let i = 0; i < 5; i++){
@@ -118,9 +190,9 @@ const walkBomj = setInterval(() =>{
 
 setInterval(() =>{
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
-    ctx.drawImage(bomj, bomjRightLeft, bomjUpDown(),bomjWidh,bomjHight)
+    ctx.drawImage(bomj, bomjRightLeft, bomjUpDown() + 180,bomjWidh,bomjHight)
     ctx.drawImage(bottonPerehodImg,1330, 345,200,150) // верхний слой
-    ctx.drawImage(bottonHomeImg,0,0)
+    ctx.drawImage(bottonHomeImg,130,345,200,150)
 },1)
 
 window.onload = () => {  
