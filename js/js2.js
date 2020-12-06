@@ -37,7 +37,7 @@ function setCanvasSize() {
     size.cx = size.w / 2;
     size.cy = size.h / 2;
 }
-
+console.log(size.w)
 // --- добавление img
 const windows = new Image();
 const bomj = new Image();
@@ -87,8 +87,17 @@ const bomjHight = 800
 
 // --- движение бомжа
 let bomjRightLeft = 0
-let bomjUpDown = 0
-let walk = 0
+const bomjUpStandart = 0 //стандартная высота 
+let bomjUpDown =  function(){ //высота бомжа меняется от высоты ширины экрана 
+    if(size.w <= 1280){
+        return -100
+    }else{
+        return 0
+        
+    }
+}
+let walk = 0  
+
 
 
 const walkBomj = setInterval(() =>{
@@ -109,7 +118,7 @@ const walkBomj = setInterval(() =>{
 
 setInterval(() =>{
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
-    ctx.drawImage(bomj, bomjRightLeft, bomjUpDown + 200,bomjWidh,bomjHight)
+    ctx.drawImage(bomj, bomjRightLeft, bomjUpDown(),bomjWidh,bomjHight)
     ctx.drawImage(bottonPerehodImg,1330, 345,200,150) // верхний слой
     ctx.drawImage(bottonHomeImg,0,0)
 },1)
