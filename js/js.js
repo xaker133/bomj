@@ -13,6 +13,8 @@ let buttonBomjRef = new Image()
 
 let buttonRefHome = new Image()
 
+
+
 // let buttonBomj = getElementById('#buttonP')
 
 // buttonBomj.addEventListener('click', function(){
@@ -66,7 +68,8 @@ setInterval(() => {
     korobka.src = location1()
     buttonRefHome.src = buttonRefHomeSrs()
     buttonBomjRef.src = buttonBomjRefSrs()
-}, 1); // обновление игры
+}, 1); // обновление игры // сделать промис который будет выполнять переход
+// а потом перйти в переход
 
 const buttonH = document.getElementById('buttonH')
 const buttonBomj = document.getElementById('buttonP')
@@ -81,14 +84,31 @@ buttonH.addEventListener('click',function(){
     console.log(home)
     buttonBomj.style.display = 'inline-block'
     buttonH.style.display = 'none'
+    // setTimeout(() => {
+    //     setInterval(() => {
+    //         korobka.src = location1()
+    //         buttonRefHome.src = buttonRefHomeSrs()
+    //         buttonBomjRef.src = buttonBomjRefSrs()
+    //     }, 1);  сделать чтоб он спускался в переход
+    // }, 2000);
     
 })
 
-
+let time = 1;
 buttonBomj.addEventListener('click',function(){
     // buttonRefHome.src = buttonRefHomeSrs() // сходить в переход
     // buttonBomjRef.src = buttonBomjRefSrs()
     buttonBomj.style.display = 'none'
+    let interval = setInterval(function() { 
+    if (time <= 3) {  
+        buttonBomjRef.src = "img/idemkperehody.jpg"
+    time++;
+    }
+    else { 
+      clearInterval(interval);
+    }
+        }, 1000);
+    // buttonBomj.style.display = 'none'
     buttonH.style.display = 'inline-block'
     // buttonBomjRef.src = ""
     bomjY = 300

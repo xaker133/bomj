@@ -1,9 +1,13 @@
 #canvas, #buttonP {
     position: relative;
 }
-
-#canvas{
-    z-index: 3;
+body{
+    margin: 0;
+}
+canvas{
+    display: block;
+    z-index: 2;
+    /* background: black; */
 }
 
 
@@ -24,12 +28,10 @@
 #buttonP{
     position: absolute;
     right: 168px;
-    bottom: 290px;
-    width: 60px;
-    height: 40px;
+    bottom: 490px;
+    width: 160px;
+    height: 140px;
     z-index: 13;
     opacity: 1;
-    /* width: 100px;
-    height: 100px; */
-}
 
+}
