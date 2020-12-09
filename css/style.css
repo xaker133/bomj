@@ -1,8 +1,9 @@
-#canvas, #buttonP {
+#canvas, #buttonP #block2 #block{
     position: relative;
 }
 body{
     margin: 0;
+    position: relative;
 }
 canvas{
     display: block;
@@ -34,4 +35,40 @@ canvas{
     z-index: 13;
     opacity: 0;
 
+}
+
+#meloch{
+    position: absolute;
+    z-index: 20;
+    right: 73px;
+    bottom: 390px;
+    width: 180px;
+    height: 140px;
+}
+
+#magazin{
+    position: absolute;
+    z-index: 25;
+    right: 999px;
+    bottom:  490px;
+    width: 180px;
+    height: 140px;
+}
+
+#block{
+    position: absolute;
+    z-index: 26;
+    width: 20px;
+    bottom:  0px;
+    height: 100px;
+    background-color: blue;
+}
+
+#block2{
+    position: absolute;
+    bottom:  0px;
+    z-index: 27;
+    width: 20px;
+    height: 100px;
+    background-color: blue;
 }

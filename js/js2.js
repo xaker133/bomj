@@ -43,16 +43,24 @@ const windows = new Image();
 const bomj = new Image();
 const bottonHomeImg = new Image();
 const bottonPerehodImg = new Image();
+const magazin = new Image();
+const kopeyka = new Image();
 
 // --- добавление src
 windows.src = "img/korobka.jpg"
 bomj.src = "img/bomj.png"
+kopeyka.src ="img/uan.png"
+
+
+const maxWight = window.innerWidth
+
 
 
 //--- добавление кнопок
-const meloch = document.getElementById("meloch")
+// const meloch = document.getElementById("meloch")
 const buttonPerehod = document.getElementById('buttonP')
 const buttonHome = document.getElementById('buttonH')
+const buttonMagazin = document.getElementById('magazin')  
 //--- добавление src кнопок
 bottonHomeImg.src = ""
 bottonPerehodImg.src = "img/buttonRef.png"
@@ -60,8 +68,22 @@ bottonPerehodImg.src = "img/buttonRef.png"
 
 let timeLocation = 0
 // -- кнопки действие 
-
-
+ 
+let bomjSkelet = {
+    width :400,
+    height :650,
+    x : 552,
+    y : 350,
+    rightBomj: function (){
+        let sum = this.x + this.width
+        return sum.toString() + "px"
+    },
+    leftBomj: function(){
+        let sum = this.x 
+        return sum.toString() + "px" // лево 
+    }
+    
+}
 
 
 let money = 0
@@ -74,9 +96,21 @@ let holodMove = 0
  
 
 
-meloch.addEventListener("click", function(){
+// meloch.addEventListener("click", function(){
+//     let melochRandom = (Math.random() * 100)
+//     if(melochRandom <= 20){
+//         money += 10
+//         console.log(money)
+//     } if(melochRandom <= 10){
+//         money += 25
+//         console.log(money)
+//     }if(melochRandom <= 1){
+//         money += 50
+//         console.log(money)
+//     }
+        
     
-})
+// })
 
 
 
@@ -85,12 +119,12 @@ buttonHome.addEventListener("click", function (){ // пойти домой че�
     // windows.src = "img/idemkperehody.jpg"
     setTimeout(() =>{
         windows.src = "img/korobka.jpg"
-        bomjRightLeft = 0
+        bomjSkelet.x = 0
         bottonPerehodImg.src = "img/buttonRef.png"
     },3000)
         
         let sPerehoda = setInterval(()=>{
-            bomjRightLeft -=5
+            bomjSkelet.x -=5
             timeLocation -= 1
             if(timeLocation  == 0){
                 clearInterval(sPerehoda)
@@ -101,7 +135,7 @@ buttonHome.addEventListener("click", function (){ // пойти домой че�
         buttonHome.style.display = "none"
         buttonPerehod.style.display = 'block'
         windows.src = "img/idemkperehody.jpg"
-        holodMove = 1
+        holodMove = 1 // выключатель холода
     })
 
 
@@ -110,7 +144,7 @@ buttonPerehod.addEventListener("click",function () { // пойти в перех
     windows.src = "img/idemkperehody.jpg"
         setTimeout(() =>{
             windows.src = "img/perehod.jpg"
-            bomjRightLeft = 650
+            bomjSkelet.x = 650
             holodUp()
             bottonHomeImg.src = "img/buttonRefHome.png"
             buttonHome.style.display = "block"
@@ -119,9 +153,9 @@ buttonPerehod.addEventListener("click",function () { // пойти в перех
         
     bottonPerehodImg.src = ""
     // windows.src = "img/perehod.jpg"
-    bomjRightLeft = 600
+    bomjSkelet.x = 600
     let vPerehod = setInterval(()=>{
-        bomjRightLeft +=5
+        bomjSkelet.x +=5
         timeLocation += 1
         if(timeLocation  == 300){
             clearInterval(vPerehod)
@@ -133,6 +167,9 @@ buttonPerehod.addEventListener("click",function () { // пойти в перех
 
 // --холод 
 
+if(bomjSkelet.x > innerWidth){
+    windows.src = "img/idemkperehody.jpg"
+}
 
 
 
@@ -144,7 +181,7 @@ function holodUp() {
             if(holod === 100){
                 alert('БОМЖ ПОГИБ')
                 clearInterval(intervalHolod)
-            }if(holodMove === 1){
+            }if(holodMove === 1){ // holodMove включить / выключить отнимание жизней 
                 clearInterval(intervalHolod)
             }
         }, 100);
@@ -154,21 +191,108 @@ function holodUp() {
 
 
 // --- добавление размеры бомжа
-const bomjWidh = 600
-const bomjHight = 800
+// const bomjWidh = 600
+// const bomjHight = 800
 
 // --- движение бомжа
-let bomjRightLeft = 0
-const bomjUpStandart = 0 //стандартная высота 
-let bomjUpDown =  function(){ //высота бомжа меняется от высоты ширины экрана 
-    if(size.w <= 1280){
-        return -100
-    }else{
-        return 0
+// let bomjRightLeft = 0
+// const bomjUpStandart = 0 //стандартная высота 
+// let bomjUpDown =  functioxn(){ //высота бомжа меняется от высоты ширины экрана 
+//     if(size.w <= 1280){
+//         return -100
+//     }else{
+//         return 0
         
-    }
-}
+//     }
+// }
 let walk = 0  
+
+// левая граница x центр который не досегаем это от x 552 до x + width 952 , 952 это правая сторона
+// создает элемент на рандомной длине width 
+// 
+
+function leftSpawn(min, max) { // рандомно выдает число справа от бомжа 
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+  }
+
+  function rigthSpawn(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+  }
+
+// leftSpawn(0,bomjSkelet.x)
+// rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
+
+function randomSpawn(){ // рандомно выдает число слева от бомжа
+    setInterval(()=>{
+        let random = Math.floor(Math.random() * 100)
+        if(random < 50){
+            
+            return leftSpawn(0,bomjSkelet.x)
+        }if(random > 50){
+            
+            return rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
+        }
+    },1000)}
+
+let randomSpawnMonetka = NaN 
+randomSpawn()
+// если число бомжа справа или слева совпадает с числом денег то money +1 
+// деньги не могут выпасть на месте где стоит бомж
+// ctx.drawImage(money, randomSpawn(), 0,window.innerWidth,window.innerHeight)
+
+// function spawnMoney(){
+    
+// }
+
+
+// let money = function(){
+
+
+// }
+
+
+
+console.log(bomjSkelet.rightBomj() + ' лево')
+console.log(bomjSkelet.leftBomj()  + ' право')
+
+let blockRight = document.getElementById('block')
+let blockLeft = document.getElementById('block2')
+
+// let hui = bomjSkelet.leftBomj()
+
+blockRight.style.left = bomjSkelet.rightBomj()
+blockLeft.style.left = bomjSkelet.leftBomj()// hui.toString() + "px"
+blockRight.style.backgroundColor = 'green'
+blockLeft.style.backgroundColor = 'red'
+
+
+
+function getRandomWidthWindow(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+  }
+
+console.log(getRandomWidthWindow(0,window.innerWidth))
+console.log(bomjSkelet.leftBomj())
+console.log(bomjSkelet.rightBomj())
+
+
+
+
+// let randomWidth = 
+ 
+// function spawn(){
+//     for(i = 0)
+// }
+
+// границы бомжа
+ 
+
 
 
 
@@ -177,25 +301,110 @@ const walkBomj = setInterval(() =>{
         walk++
     }
     // console.log(walk)
-    bomjRightLeft -= 1
+    bomjSkelet.x -= 1
     if(walk >= 5){
         for(let i = 0; i < 5; i++){
-            bomjRightLeft += 1
+            bomjSkelet.x += 1
             walk -= 1
         }
     }
     
 },500)
 
+// function b(){
+//     g = Math.floor(Math.random() * 100)
+//     if(g === 1){
+//         ctx.drawImage(kopeyka,randomSpawn(),0)
+//         console.log(g)
+//     }
+// }
+
+document.addEventListener('keydown', function(event) {
+    if (event.code == 'KeyA') {
+      bomjSkelet.x  -= 50
+    }
+  });
+
+  
+document.addEventListener('keydown', function(event) {
+    if (event.code == 'KeyD') {
+      bomjSkelet.x += 50
+    }
+  });
+
+let locationWalk = "img/korobka.jpg"
+// windows.src = locationWalk  
+// function walkLokation(){
+//     if(bomjSkelet.x < -400 ){
+//         bomjSkelet.x = window.innerWidth
+//     }if(bomjSkelet.x > window.innerWidth){
+//         bomjSkelet.x = -400
+
+//     }
+// }
+
+function walkLokationRight(){
+    if(bomjSkelet.x < -400 ){
+        bomjSkelet.x = window.innerWidth
+    }
+}
+
+function walkLokationLeft(){
+    if(bomjSkelet.x > window.innerWidth){
+    bomjSkelet.x = -400
+    }
+}
+
+
+function walkLokationSrc(params) {
+    if(windows.src === "img/korobka.jpg"){
+        if (walkLokationLeft()){
+            windows.src = "img/idemkperehody.jpg"
+        }
+     
+    // }if(windows.src ==="img/idemkperehody.jpg"){
+
+    // }
+}
+}
+function name(params) {
+    if(windows.src === "img/korobka.jpg"){
+        windows.src = "img/idemkperehody.jpg"
+    }if(windows.src = "img/idemkperehody.jpg"){
+        //left "img/korobka.jpg" // right windows.src = "img/perehod.jpg"
+    }
+}
 
 setInterval(() =>{
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
-    ctx.drawImage(bomj, bomjRightLeft, bomjUpDown() + 180,bomjWidh,bomjHight)
-    ctx.drawImage(bottonPerehodImg,1330, 345,200,150) // верхний слой
+    ctx.drawImage(bomj, bomjSkelet.x, bomjSkelet.y,bomjSkelet.width,bomjSkelet.height)
+    ctx.drawImage(bottonPerehodImg,1550, 345,200,150) // верхний слой
     ctx.drawImage(bottonHomeImg,130,345,200,150)
+    blockLeft.style.left = bomjSkelet.leftBomj()
+    blockRight.style.left = bomjSkelet.rightBomj()
+    walkLokationSrc()
+    // walkLokation()
+    // if(windows.src = "img/korobka.jpg"){
+    //     ctx.drawImage(kopeyka,randomSpawnMonetka,880,180,100)
+    // }
+    // if(bomjSkelet.x < -400 ){
+    //     bomjSkelet.x = window.innerWidth
+    //     windows.src =  "img/korobka.jpg"
+    // }
+    // if(bomjSkelet.x > window.innerWidth){
+    //     windows.src = "img/idemkperehody.jpg"
+    //     bomjSkelet.x = -400
+    // }
+    // if()
+
+    // b()
+    
+    
+    
 },1)
+
 
 window.onload = () => {  
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
-    ctx.drawImage(bomj, bomjRightLeft, bomjUpDown + 60,bomjWidh,bomjHight) 
+    ctx.drawImage(bomj, bomjSkelet.x, bomjSkelet.y,bomjSkelet.width,bomjSkelet.height) 
  }
