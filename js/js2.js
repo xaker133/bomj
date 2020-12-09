@@ -47,7 +47,7 @@ const magazin = new Image();
 const kopeyka = new Image();
 
 // --- добавление src
-windows.src = "img/korobka.jpg"
+// windows.src = "img/korobka.jpg"
 bomj.src = "img/bomj.png"
 kopeyka.src ="img/uan.png"
 
@@ -167,9 +167,7 @@ buttonPerehod.addEventListener("click",function () { // пойти в перех
 
 // --холод 
 
-if(bomjSkelet.x > innerWidth){
-    windows.src = "img/idemkperehody.jpg"
-}
+
 
 
     
@@ -378,8 +376,9 @@ function walkLokationSrc(params) {
 let holodLok = 0
 
 function lokationHolod(){
-    if(2 === 2){
-        holodLok += 500
+    if(windows.src = korobkaSrc){
+        holodLok = 500
+        console.log(holodLok)
     }
     if(windows.src = idemkPerehodySrc){
         holodLok = 350
@@ -397,27 +396,25 @@ const spawnMonetka1 = setInterval(() =>{
 
 // lokationHolod(arrWindow)
 
-
-
-
-
-function holodUp() {
+lokationHolod()
+let intervalHolod = setInterval(() => {
     console.log(holod)
-        const intervalHolod = setInterval(() => {
-            console.log(holod)
-            holod += 1
-            if(holod === 100){
-                alert('БОМЖ ПОГИБ')
-                clearInterval(intervalHolod)
-            }if(holodMove === 1){ // holodMove включить / выключить отнимание жизней 
-                clearInterval(intervalHolod)
-            }
-        },holodLok);
-   }
+    holod += 1
+    if(holod === 100){
+        alert('БОМЖ ПОГИБ')
+        clearInterval(intervalHolod)
+    }if(holodMove === 1){ // holodMove включить / выключить отнимание жизней 
+        clearInterval(intervalHolod)
+    }
+},holodLok)
+
+
+
+
 
 
         
-holodUp()
+
 setInterval(() =>{
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
     ctx.drawImage(bomj, bomjSkelet.x, bomjSkelet.y,bomjSkelet.width,bomjSkelet.height)
@@ -425,7 +422,8 @@ setInterval(() =>{
     ctx.drawImage(bottonHomeImg,130,345,200,150)
     blockLeft.style.left = bomjSkelet.leftBomj()
     blockRight.style.left = bomjSkelet.rightBomj()
-    lokationHolod(holodLok)
+    
+
     // walkLokationSrc()
     // walkLokationRight()
     // walkLokationLeft()
