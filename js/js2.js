@@ -353,27 +353,56 @@ function walkLokationLeft(){
     if(bomjSkelet.x > window.innerWidth){
     bomjSkelet.x = -400
     }
+    
 }
 
+const perehodSrc = "img/perehod.jpg"
+const korobkaSrc = "img/korobka.jpg"
+const idemkPerehody = "img/idemkperehody.jpg"
+const arrWindow = [korobkaSrc,idemkPerehody,perehodSrc]
 
+let childParams = 0
+let childLenght = arrWindow.length
+console.log(childLenght)
 function walkLokationSrc(params) {
-    if(windows.src === "img/korobka.jpg"){
-        if (walkLokationLeft()){
-            windows.src = "img/idemkperehody.jpg"
+    
+    let locationSrc = params[0 + childParams]
+    windows.src = locationSrc
+    if(bomjSkelet.x > window.innerWidth){
+        childParams += 1
+        bomjSkelet.x = -400
+        console.log(locationSrc)
+        console.log(childParams)
+       
+        console.log(windows.src)
+        
         }
-     
-    // }if(windows.src ==="img/idemkperehody.jpg"){
-
-    // }
-}
-}
-function name(params) {
-    if(windows.src === "img/korobka.jpg"){
-        windows.src = "img/idemkperehody.jpg"
-    }if(windows.src = "img/idemkperehody.jpg"){
-        //left "img/korobka.jpg" // right windows.src = "img/perehod.jpg"
+        if(bomjSkelet.x < -400 ){
+            bomjSkelet.x = window.innerWidth
+            childParams -= 1
+        }if(childParams < 0){
+            childParams = 0
+        }if(childParams === childLenght){
+            childParams = childLenght - 1
+        }
     }
-}
+ 
+// добавить интервал холода если это дом то меньше елси переход и так далее
+
+function lokationHolod(childParams){
+    if(childParams === 0){
+
+    }
+}    
+
+
+const spawnMonetka1 = setInterval(() =>{
+    randomSpawn()
+},1000)
+
+locationHolod(arrWindow)
+
+        
 
 setInterval(() =>{
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
@@ -382,7 +411,11 @@ setInterval(() =>{
     ctx.drawImage(bottonHomeImg,130,345,200,150)
     blockLeft.style.left = bomjSkelet.leftBomj()
     blockRight.style.left = bomjSkelet.rightBomj()
-    walkLokationSrc()
+    
+    // walkLokationSrc()
+    // walkLokationRight()
+    // walkLokationLeft()
+    walkLokationSrc(arrWindow)
     // walkLokation()
     // if(windows.src = "img/korobka.jpg"){
     //     ctx.drawImage(kopeyka,randomSpawnMonetka,880,180,100)
