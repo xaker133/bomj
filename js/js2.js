@@ -113,7 +113,7 @@ let holodMove = 0
 // })
 
 
-
+// getRandomWidthWindow
 
 buttonHome.addEventListener("click", function (){ // пойти домой через переход и выключить холод, холод остается на том уровне на котором был
     // windows.src = "img/idemkperehody.jpg"
@@ -194,7 +194,7 @@ let walk = 0
 // создает элемент на рандомной длине width 
 // 
 
-function leftSpawn(min, max) { // рандомно выдает число справа от бомжа 
+function leftSpawn(min, max) { // рандомно выдает число слева от бомжа 
     min = Math.ceil(min);
     max = Math.floor(max);
     randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
@@ -206,23 +206,35 @@ function leftSpawn(min, max) { // рандомно выдает число сп�
     randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
   }
 
+let randomSpawnMonetka = NaN 
+// randomSpawn()
+// leftSpawn(0,bomjSkelet.x)
+// console.log(randomSpawnMonetka)
+// rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
+// console.log(randomSpawnMonetka)
+// console.log(leftSpawn(0,bomjSkelet.x))
+// console.log(rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth))
+randomSpawn()
+setInterval(() => {
+    randomSpawn()
+    console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
+}, 500);
+console.log(randomSpawnMonetka)
 // leftSpawn(0,bomjSkelet.x)
 // rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
 
 function randomSpawn(){ // рандомно выдает число слева от бомжа
-    setInterval(()=>{
         let random = Math.floor(Math.random() * 100)
         if(random < 50){
             
-            return leftSpawn(0,bomjSkelet.x)
+            leftSpawn(0,bomjSkelet.x)
+            console.log('ЛЕВАЯ МОНЕТКА')
         }if(random > 50){
-            
-            return rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
-        }
-    },1000)}
-
-let randomSpawnMonetka = NaN 
-randomSpawn()
+            rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
+            console.log('ПРАВАЯ МОНЕТКА')
+}
+}
+// console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница `)
 // если число бомжа справа или слева совпадает с числом денег то money +1 
 // деньги не могут выпасть на месте где стоит бомж
 // ctx.drawImage(money, randomSpawn(), 0,window.innerWidth,window.innerHeight)
@@ -254,13 +266,28 @@ blockLeft.style.backgroundColor = 'red'
 
 
 
-function getRandomWidthWindow(min, max) {
+// function getRandomWidthWindow(min, max) { // пример
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+//   }
+
+
+
+function leftSpawn(min, max) { // рандомно выдает число справа от бомжа 
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-  }
+    randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+}
 
-console.log(getRandomWidthWindow(0,window.innerWidth))
+function rigthSpawn(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+}
+// delayHolod
+
+// console.log(getRandomWidthWindow(0,window.innerWidth))
 console.log(bomjSkelet.leftBomj())
 console.log(bomjSkelet.rightBomj())
 
@@ -325,7 +352,7 @@ let locationWalk = "img/korobka.jpg"
 
 //     }
 // }
-
+ 
 function walkLokationRight(){
     if(bomjSkelet.x < -400 ){
         bomjSkelet.x = window.innerWidth
@@ -338,6 +365,21 @@ function walkLokationLeft(){
     }
     
 }
+
+let monetkaSetSpawn = null;
+let monetkaSpawnTime = setTimeout(function request() {
+
+    if(childParams === 2){// moneaz
+        delayHolod = 400
+        
+    }
+
+    timerId = setTimeout(request, monetkaSetSpawn);
+  
+  }, monetkaSetSpawn);
+
+
+
 
 const perehodSrc = "img/perehod.jpg"
 const korobkaSrc = "img/korobka.jpg"
@@ -373,40 +415,64 @@ function walkLokationSrc(params) {
 // добавить интервал холода если это дом то меньше елси переход и так далее
 
 
-let holodLok = 0
-
-function lokationHolod(){
-    if(windows.src = korobkaSrc){
-        holodLok = 500
-        console.log(holodLok)
-    }
-    if(windows.src = idemkPerehodySrc){
-        holodLok = 350
-    }
-    if(windows.src = perehodSrc){
-        holodLok = 40  }
-}   
 
 
+let randomXmonetka = 0
 
 
-const spawnMonetka1 = setInterval(() =>{
-    randomSpawn()
-},1000)
 
 // lokationHolod(arrWindow)
 
-lokationHolod()
-let intervalHolod = setInterval(() => {
-    console.log(holod)
+
+
+
+
+
+// monetkaRandom()
+let delayHolod = 100;
+let setTimeHolod = setTimeout(function request() {
     holod += 1
+    console.log(delayHolod)
     if(holod === 100){
-        alert('БОМЖ ПОГИБ')
-        clearInterval(intervalHolod)
-    }if(holodMove === 1){ // holodMove включить / выключить отнимание жизней 
-        clearInterval(intervalHolod)
+        alert('bomj pogip')
+        setTimeHolod = NAN
     }
-},holodLok)
+    if (childParams === 0) {
+      // увеличить интервал для следующего запроса
+      delayHolod = 600
+      
+      console.log(holod)
+      
+    }
+    if (childParams === 1) {
+        // увеличить интервал для следующего запроса
+        delayHolod = 200
+        
+        console.log(holod)
+      }
+    if (childParams === 2) {
+        // увеличить интервал для следующего запроса
+        delayHolod = 100
+        
+        console.log(holod)
+    }
+
+    
+    timerId = setTimeout(request, delayHolod);
+  
+  }, delayHolod);
+  
+
+// let intervalHolod = setInterval(() => {
+//     console.log(holod)
+//     holod += 1
+//     if(holod === 100){
+//         alert('БОМЖ ПОГИБ')
+//         clearInterval(intervalHolod)
+//     }if(holodMove === 1){ // holodMove включить / выключить отнимание жизней 
+//         clearInterval(intervalHolod)
+//     }
+// },lokationHolod())
 
 
 
@@ -422,7 +488,7 @@ setInterval(() =>{
     ctx.drawImage(bottonHomeImg,130,345,200,150)
     blockLeft.style.left = bomjSkelet.leftBomj()
     blockRight.style.left = bomjSkelet.rightBomj()
-    
+   
 
     // walkLokationSrc()
     // walkLokationRight()
