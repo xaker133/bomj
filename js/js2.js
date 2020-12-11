@@ -70,17 +70,18 @@ let timeLocation = 0
 // -- кнопки действие 
  
 let bomjSkelet = {
+    money: 0,
     width :400,
     height :650,
     x : 552,
     y : 350,
     rightBomj: function (){
         let sum = this.x + this.width
-        return sum.toString() + "px"
+        return sum //.toString() + "px"
     },
     leftBomj: function(){
         let sum = this.x 
-        return sum.toString() + "px" // лево 
+        return sum //.toString() + "px" // лево 
     }
     
 }
@@ -193,7 +194,7 @@ let walk = 0
 // левая граница x центр который не досегаем это от x 552 до x + width 952 , 952 это правая сторона
 // создает элемент на рандомной длине width 
 // 
-
+let randomSpawnMonetka = 0
 function leftSpawn(min, max) { // рандомно выдает число слева от бомжа 
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -206,34 +207,63 @@ function leftSpawn(min, max) { // рандомно выдает число сл�
     randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
   }
 
-let randomSpawnMonetka = NaN 
 // randomSpawn()
 // leftSpawn(0,bomjSkelet.x)
 // console.log(randomSpawnMonetka)
-// rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
-// console.log(randomSpawnMonetka)
-// console.log(leftSpawn(0,bomjSkelet.x))
+// rigthSpawn(bomjn(0,bomjSkelet.x))
 // console.log(rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth))
-randomSpawn()
-setInterval(() => {
-    randomSpawn()
-    console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
-}, 500);
-console.log(randomSpawnMonetka)
+ function monetkaImage(){
+    ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80)
+ }
+//  let lef = bomjSkelet.x
+// let right = bomjSkelet.x + bomjSkelet.width
+
+
+let monetaMoney = randomSpawnMonetka
+
+
+
+// randomSpawn()
+
 // leftSpawn(0,bomjSkelet.x)
 // rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
 
+// выпадает по всей длине а если монетка > bomjSkelet.x || < bomjSkelet.x + bomjSkelet.wight 
 function randomSpawn(){ // рандомно выдает число слева от бомжа
         let random = Math.floor(Math.random() * 100)
         if(random < 50){
-            
-            leftSpawn(0,bomjSkelet.x)
+            leftSpawn(0,bomjSkelet.leftBomj())
+            if(randomSpawnMonetka < 0){
+                rigthSpawn(bomjSkelet.rightBomj(),window.innerWidth)
+            console.log('ПРАВАЯ МОНЕТКА')
+            }
             console.log('ЛЕВАЯ МОНЕТКА')
         }if(random > 50){
-            rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
+            rigthSpawn(bomjSkelet.rightBomj(),window.innerWidth)
+            if(randomSpawnMonetka >= window.innerWidth ){
+                leftSpawn(0,bomjSkelet.leftBomj())
+                console.log('ЛЕВАЯ МОНЕТКА')
+            }
             console.log('ПРАВАЯ МОНЕТКА')
 }
 }
+
+
+setInterval(() => {
+    randomSpawn()
+    console.log(randomSpawnMonetka)
+    console.log(`${bomjSkelet.money} у вас денег`)
+    if (randomSpawnMonetka >= bomjSkelet.leftBomj() ?? randomSpawnMonetka <= bomjSkelet.rightBomj()){
+        bomjSkelet.money += 1
+
+        alert('hui sosi')
+    }
+    console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
+}, 2000);
+
+setInterval(() => {
+    console.log(`${randomSpawnMonetka} --------------`)
+}, 500);
 // console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница `)
 // если число бомжа справа или слева совпадает с числом денег то money +1 
 // деньги не могут выпасть на месте где стоит бомж
@@ -488,6 +518,7 @@ setInterval(() =>{
     ctx.drawImage(bottonHomeImg,130,345,200,150)
     blockLeft.style.left = bomjSkelet.leftBomj()
     blockRight.style.left = bomjSkelet.rightBomj()
+    monetkaImage()
    
 
     // walkLokationSrc()
