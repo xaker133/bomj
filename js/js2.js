@@ -51,7 +51,7 @@ const kopeyka = new Image();
 bomj.src = "img/bomj.png"
 kopeyka.src ="img/uan.png"
 
-
+console.log(innerWidth + 'ширина')
 const maxWight = window.innerWidth
 
 
@@ -73,7 +73,7 @@ let bomjSkelet = {
     money: 0,
     width :400,
     height :650,
-    x : 552,
+    x : 500,
     y : 350,
     rightBomj: function (){
         let sum = this.x + this.width
@@ -86,7 +86,7 @@ let bomjSkelet = {
     
 }
 
-
+let childParams = 0 //локации 
 let money = 0
 
 // --холод переменная 
@@ -112,7 +112,11 @@ let holodMove = 0
         
     
 // })
-
+setInterval(() => {
+    if(childParams === 2){
+        console.log(bomjSkelet.x + 'шаг бомжа')
+    }
+}, 2000);
 
 // getRandomWidthWindow
 
@@ -170,7 +174,6 @@ buttonPerehod.addEventListener("click",function () { // пойти в перех
 
 
 
-
     
 
 
@@ -195,16 +198,23 @@ let walk = 0
 // создает элемент на рандомной длине width 
 // 
 let randomSpawnMonetka = 0
+// setInterval(() =>{
+//     randomSpawnMonetka = 0
+// },500)
 function leftSpawn(min, max) { // рандомно выдает число слева от бомжа 
     min = Math.ceil(min);
     max = Math.floor(max);
-    randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+    randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min 
+    //Максимум и минимум включаются
+  
   }
 
   function rigthSpawn(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+    randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min 
+
+     //Максимум и минимум включаются
   }
 
 // randomSpawn()
@@ -212,58 +222,127 @@ function leftSpawn(min, max) { // рандомно выдает число сл�
 // console.log(randomSpawnMonetka)
 // rigthSpawn(bomjn(0,bomjSkelet.x))
 // console.log(rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth))
- function monetkaImage(){
-    ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80)
- }
 //  let lef = bomjSkelet.x
 // let right = bomjSkelet.x + bomjSkelet.width
 
 
-let monetaMoney = randomSpawnMonetka
+// let monetaMoney = randomSpawnMonetka
 
-
-
+let iu = 0
+function leftSpawn1(min, max) { // рандомно выдает число слева от бомжа 
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    iu = Math.floor(Math.random() * (max - min + 1)) + min ; //Максимум и минимум включаются
+  }
+  leftSpawn1(1,33)
+  console.log(50*iu)
+console.log(`${iu} результат ${bomjSkelet.x} ${bomjSkelet.x / 50 }`)
 // randomSpawn()
 
 // leftSpawn(0,bomjSkelet.x)
 // rigthSpawn(bomjSkelet.x + bomjSkelet.width,window.innerWidth)
-
+let monetkaUmn = 1
 // выпадает по всей длине а если монетка > bomjSkelet.x || < bomjSkelet.x + bomjSkelet.wight 
 function randomSpawn(){ // рандомно выдает число слева от бомжа
         let random = Math.floor(Math.random() * 100)
+        
         if(random < 50){
-            leftSpawn(0,bomjSkelet.leftBomj())
-            if(randomSpawnMonetka < 0){
-                rigthSpawn(bomjSkelet.rightBomj(),window.innerWidth)
+            leftSpawn(1,bomjSkelet.x / 50) 
+            monetkaUmn = randomSpawnMonetka * 50
+            
+            if(randomSpawnMonetka <= 0){
+                rigthSpawn((bomjSkelet.x + bomjSkelet.width) / 50, 33)
+                monetkaUmn = randomSpawnMonetka * 50
             console.log('ПРАВАЯ МОНЕТКА')
             }
             console.log('ЛЕВАЯ МОНЕТКА')
         }if(random > 50){
-            rigthSpawn(bomjSkelet.rightBomj(),window.innerWidth)
+            rigthSpawn((bomjSkelet.x + bomjSkelet.width) / 50, 33) 
+            monetkaUmn = randomSpawnMonetka * 50
             if(randomSpawnMonetka >= window.innerWidth ){
-                leftSpawn(0,bomjSkelet.leftBomj())
+                leftSpawn(1,bomjSkelet.x / 50) 
+                monetkaUmn = randomSpawnMonetka * 50
                 console.log('ЛЕВАЯ МОНЕТКА')
             }
             console.log('ПРАВАЯ МОНЕТКА')
 }
 }
 
+// let zalyga = bomjSkelet.x +  bomjSkelet.width + 10 
+// alert(zalyga)
+// alert( bomjSkelet.x +  bomjSkelet.width)
+// setInterval(() =>{
+//     if(zalyga === bomjSkelet.x +  bomjSkelet.width){
+//         alert(`${zalyga} = ${bomjSkelet.x + bomjSkelet.width}`)
+//     }
+// },1)
+// function monetkaImage(){
+//     ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80)
+//  }
+// function startMonetka(){
+//     clearInterval();
+//     if(locationMonetkaStart == true){
+//         ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80)
+//     }
+// }
+// function qweqwe() {
+//     clearInterval(qweqwe);
 
-setInterval(() => {
+//     qweqwe = setInterval(function() {
+//         alert(1);
+//     }, 1000);
+// }
+
+// qweqwe();
+
+// function locationMonetkaStart(){
+//     // clearInterval(startMonetka)
+//     if(childParams === 2){
+//         setInterval(() => {
+//             randomSpawn()
+//             ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80)
+//             console.log(randomSpawnMonetka)
+//             console.log(`${bomjSkelet.money} у вас денег`)
+//             if (randomSpawnMonetka >= bomjSkelet.leftBomj() || randomSpawnMonetka <= bomjSkelet.rightBomj()){
+//                 bomjSkelet.money += 1
+        
+//             }
+//             console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
+//         }, 2000);
+        
+//         setInterval(() => {
+//             console.log(`${randomSpawnMonetka} --------------`)
+//         }, 500);
+//     }
+// }
+// locationMonetkaStart()
+let xx = bomjSkelet.x
+let yy = bomjSkelet.x + bomjSkelet.width
+let o = 0
+let MonetkaStart = null;
+let locationMonetkaStart = setTimeout(function request() {
+    if(o === 1){
+        MonetkaStart = 100
+        o = 0
+    }
+    if(childParams === 2){
+        
+    MonetkaStart = 2000
     randomSpawn()
     console.log(randomSpawnMonetka)
     console.log(`${bomjSkelet.money} у вас денег`)
-    if (randomSpawnMonetka >= bomjSkelet.leftBomj() ?? randomSpawnMonetka <= bomjSkelet.rightBomj()){
+    if (monetkaUmn > xx, monetkaUmn < yy ){
         bomjSkelet.money += 1
-
-        alert('hui sosi')
+        o += 1
     }
-    console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
-}, 2000);
 
-setInterval(() => {
-    console.log(`${randomSpawnMonetka} --------------`)
-}, 500);
+    console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
+    }
+
+
+    timerId = setTimeout(request, MonetkaStart);
+  
+  }, MonetkaStart);
 // console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница `)
 // если число бомжа справа или слева совпадает с числом денег то money +1 
 // деньги не могут выпасть на месте где стоит бомж
@@ -304,17 +383,17 @@ blockLeft.style.backgroundColor = 'red'
 
 
 
-function leftSpawn(min, max) { // рандомно выдает число справа от бомжа 
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
+// function leftSpawn(min, max) { // рандомно выдает число справа от бомжа 
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+// }
 
-function rigthSpawn(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
+// function rigthSpawn(min, max) {
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+// }
 // delayHolod
 
 // console.log(getRandomWidthWindow(0,window.innerWidth))
@@ -336,20 +415,20 @@ console.log(bomjSkelet.rightBomj())
 
 
 
-const walkBomj = setInterval(() =>{
-    if(walk <= 5){
-        walk++
-    }
-    // console.log(walk)
-    bomjSkelet.x -= 1
-    if(walk >= 5){
-        for(let i = 0; i < 5; i++){
-            bomjSkelet.x += 1
-            walk -= 1
-        }
-    }
+// const walkBomj = setInterval(() =>{
+//     if(walk <= 5){
+//         walk++
+//     }
+//     // console.log(walk)
+//     bomjSkelet.x -= 1
+//     if(walk >= 5){
+//         for(let i = 0; i < 5; i++){
+//             bomjSkelet.x += 1
+//             walk -= 1
+//         }
+//     }
     
-},500)
+// },500)
 
 // function b(){
 //     g = Math.floor(Math.random() * 100)
@@ -361,14 +440,21 @@ const walkBomj = setInterval(() =>{
 
 document.addEventListener('keydown', function(event) {
     if (event.code == 'KeyA') {
-      bomjSkelet.x  -= 50
+        // for(let i = 0;i < 50; i++){
+        //     bomjSkelet.x -= 1
+        // }
+          bomjSkelet.x -= 50
+      
     }
   });
 
   
 document.addEventListener('keydown', function(event) {
     if (event.code == 'KeyD') {
-      bomjSkelet.x += 50
+        // for(let i = 0;i < 50; i++){
+        //     bomjSkelet.x += 1
+        // }
+        bomjSkelet.x += 50
     }
   });
 
@@ -416,7 +502,7 @@ const korobkaSrc = "img/korobka.jpg"
 const idemkPerehodySrc = "img/idemkperehody.jpg"
 const arrWindow = [korobkaSrc,idemkPerehodySrc,perehodSrc]
 
-let childParams = 0
+
 let childLenght = arrWindow.length
 console.log(childLenght)
 function walkLokationSrc(params) {
@@ -459,7 +545,7 @@ let randomXmonetka = 0
 
 
 // monetkaRandom()
-let delayHolod = 100;
+let delayHolod = 10000;
 let setTimeHolod = setTimeout(function request() {
     holod += 1
     console.log(delayHolod)
@@ -518,7 +604,15 @@ setInterval(() =>{
     ctx.drawImage(bottonHomeImg,130,345,200,150)
     blockLeft.style.left = bomjSkelet.leftBomj()
     blockRight.style.left = bomjSkelet.rightBomj()
-    monetkaImage()
+    if(childParams === 2){
+            ctx.drawImage(kopeyka,monetkaUmn,300,100,80) 
+    } 
+    // monetkaImage()
+    // locationMonetkaStart()
+    // locationMonetkaStart()
+
+
+
    
 
     // walkLokationSrc()
