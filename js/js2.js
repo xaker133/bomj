@@ -316,15 +316,27 @@ function randomSpawn(){ // рандомно выдает число слева �
 //     }
 // }
 // locationMonetkaStart()
-let xx = bomjSkelet.x
-let yy = bomjSkelet.x + bomjSkelet.width
-let o = 0
-let MonetkaStart = null;
-let locationMonetkaStart = setTimeout(function request() {
-    if(o === 1){
-        MonetkaStart = 100
-        o = 0
+let xx = undefined
+let yy = undefined
+setInterval(() => {
+    xx = bomjSkelet.x // / 50
+    yy = bomjSkelet.x + bomjSkelet.width // / 50
+}, 1);
+// let o = 0
+// считает то место где он был 
+// 
+
+// let monetkaDel = MonetkaStart / 50
+let MonetkaStart = undefined;
+    if (monetkaUmn > xx, monetkaUmn < yy ){
+        bomjSkelet.money += 1
+        MonetkaStart = 0
     }
+let locationMonetkaStart = setTimeout(function request() {
+    // if(o === 1){
+    //     MonetkaStart = 100
+    //     o = 0
+    // }
     if(childParams === 2){
         
     MonetkaStart = 2000
@@ -333,7 +345,7 @@ let locationMonetkaStart = setTimeout(function request() {
     console.log(`${bomjSkelet.money} у вас денег`)
     if (monetkaUmn > xx, monetkaUmn < yy ){
         bomjSkelet.money += 1
-        o += 1
+        randomSpawn()
     }
 
     console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
