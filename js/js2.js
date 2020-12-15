@@ -17,20 +17,27 @@ function setCanvasSize() {
 console.log(size.w)
 
 
+
+// if(h > 300 && h < 400) {
+//     alert(h)
+// }
+
 const windows = new Image();
 const bomj = new Image();
 const bottonHomeImg = new Image();
 const bottonPerehodImg = new Image();
 const magazin = new Image();
 const kopeyka = new Image();
+const blue = new Image();
 
+blue.src = "img/blue.jpg"
 bomj.src = "img/bomj.png"
 kopeyka.src ="img/uan.png"
 
 console.log(innerWidth + 'ширина')
 const maxWight = window.innerWidth
 
-
+let blueWidth = 200
 
 let timeLocation = 0
 
@@ -132,13 +139,13 @@ setInterval(() => {
     //     MonetkaStart = 0
     //     alert('сработало')
     // } // / 50
-}, 500);
+}, 1);
 // let o = 0
 // считает то место где он был 
 // 
 
 // let monetkaDel = MonetkaStart / 50
-let MonetkaStart = undefined;
+
 // if(randomSpawnMonetka === bomjSkelet.x + 50 || bomjSkelet.x + 50 * 2 || bomjSkelet.x + 50 * 3 || bomjSkelet.x + 50 * 4 || 
 //     bomjSkelet.x + 50 * 5 || bomjSkelet.x + 50 * 6 || bomjSkelet.x + 50 * 7 || bomjSkelet.x + 50 * 8){
 //         bomjSkelet.money += 1
@@ -184,24 +191,50 @@ let MonetkaStart = undefined;
 //     }, 1000);
 // }
 
+let MonetkaStart = 1000;
+let timeMonet = setTimeout(function request() { 
+                MonetkaStart = 1000;
+                console.log('-------------------')
+                if(childParams === 4){                 
+                randomSpawn()
+                if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+                    bomjSkelet.money += 1
+                    // alert(bomjSkelet.money)
+                    MonetkaStart = 100
+                }
+                console.log('-------------------')}
+            
+                timerId = setTimeout(request, MonetkaStart);
+                
+              
+              },MonetkaStart);
 // qweqwe();
+// randomSpawn()
+// setInterval(() => {
+//     randomSpawn()
+//     if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+//         randomSpawn()
+//         bomjSkelet.money += 1
+//         console.log(bomjSkelet.money)
+//     }
+// }, 500);
 
-function randomMonet(){
-    let monetkaStart = 500
-    if(randomSpawnMonetka === 50){
-        MonetkaStart = 1;
-    }
-    setTimeout(function request() {  
-                         MonetkaStart = 2000
-            randomSpawn()
+// function randomMonet(){
+//     if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+//         randomSpawn()
+//         alert('овечка')
+//     }
+//     setTimeout(function request() {  
+//             MonetkaStart = 2000
+//             randomSpawn()
      
         
-            timerId = setTimeout(request, MonetkaStart);
+//             timerId = setTimeout(request, MonetkaStart);
           
-          },MonetkaStart);
-}
+//           },MonetkaStart);
+// }
 
-randomMonet()
+// randomMonet()
 // let locationMonetkaStart = setTimeout(function request() {
 //     // if(o === 1){
 //     //     MonetkaStart = 100
@@ -300,11 +333,10 @@ function walkLokationSrc(params) {
         }
     }
 
-
-
 let delayHolod = 600;
 let setTimeHolod = setTimeout(function request() {
     holod += 1
+    blueWidth -= 2 
     console.log(delayHolod)
     if(holod === 100){
         alert('bomj pogip')
@@ -350,7 +382,7 @@ setInterval(() =>{
     if(childParams === 4){
             ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80) 
     } 
-
+    ctx.drawImage(blue, bomjSkelet.x + 50, 300, blueWidth, 10)
     walkLokationSrc(arrWindow)
 
     
