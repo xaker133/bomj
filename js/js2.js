@@ -29,20 +29,13 @@ const bottonPerehodImg = new Image();
 const magazin = new Image();
 const kopeyka = new Image();
 const blue = new Image();
+const drova = new Image()
+const fire = new Image()
 
-blue.src = "img/blue.jpg"
-bomj.src = "img/bomj.png"
-kopeyka.src ="img/uan.png"
 
-console.log(innerWidth + 'ширина')
-const maxWight = window.innerWidth
-
-let blueWidth = 200
-
-let timeLocation = 0
-
- 
 let bomjSkelet = {
+    spichki:1,
+    vodka: 0,
     money: 0,
     width :400,
     height :650,
@@ -58,6 +51,88 @@ let bomjSkelet = {
     }
 
 }
+
+
+drova.src = "img/drova.png"
+
+const fire1 = "img/ogon1.png"
+
+const fire2 = "img/ogon2.png"
+
+const fire3 = "img/ogon3.png"
+
+const fireAnimation = [fire1,fire2,fire3]
+
+
+let fireParams = 0
+
+fire.src = fireAnimation[fireParams]
+
+let fireFucktor = false
+
+let spichki = false  // если true есть спичьки
+
+// document.addEventListener('keydown', function(event) {
+//     if (event.code == 'KeyF') {
+//         if(pizda === true){
+//             pizda = false
+
+//         }else{
+//             pizda = true
+//         }
+            
+
+      
+//     }
+//   });
+
+ // если true есть спичьки
+
+bomjSkelet.spichki > 0 ? spichki = true : spichki = false
+
+
+if(spichki === true){
+    document.addEventListener('keydown', function(event) {
+        if (event.code == 'KeyE') {
+            if(fireFucktor === true){
+                fireFucktor = false
+
+                bomjSkelet.spichki - 1
+            }
+            else
+                fireFucktor =  true              
+        }
+      });       
+            
+    function fireStart(){
+        let p = setInterval(()=>{
+            fire.src = fireAnimation[fireParams]
+            
+            fireParams += 1
+            
+            if(fireParams === 3){
+                clearInterval(p)
+                fireParams = 0
+                fireStart()
+            }
+        },150)
+    } 
+    fireStart()
+}
+
+blue.src = "img/blue.jpg"
+bomj.src = "img/bomj.png"
+kopeyka.src ="img/uan.png"
+
+console.log(innerWidth + 'ширина')
+const maxWight = window.innerWidth
+
+let blueWidth = 200
+
+let timeLocation = 0
+
+ 
+
 
 let childParams = 2 //локации 
 
@@ -105,25 +180,25 @@ if (bomjSkelet.x === proverka ){
 function randomSpawn(){ // рандомно выдает число слева от бомжа
         let random = Math.floor(Math.random() * 100)
         
-        if(random < 50){
+        if(random < 50 ){
             leftSpawn(1,bomjSkelet.x / 50) 
             randomSpawnMonetka = randomSpawnMonetka * 50
             
             if(randomSpawnMonetka <= 0){
                 rigthSpawn((bomjSkelet.x + bomjSkelet.width) / 50, 33)
                 randomSpawnMonetka = randomSpawnMonetka * 50
-            console.log('ПРАВАЯ МОНЕТКА')
+
             }
-            console.log('ЛЕВАЯ МОНЕТКА')
+            
         }if(random > 50){
             rigthSpawn((bomjSkelet.x + bomjSkelet.width) / 50, 33) 
             randomSpawnMonetka = randomSpawnMonetka * 50
             if(randomSpawnMonetka >= window.innerWidth ){
                 leftSpawn(1,bomjSkelet.x / 50) 
                 randomSpawnMonetka = randomSpawnMonetka * 50
-                console.log('ЛЕВАЯ МОНЕТКА')
+                
             }
-            console.log('ПРАВАЯ МОНЕТКА')
+            
 }
 }
 
@@ -190,24 +265,80 @@ setInterval(() => {
 //         randomSpawn()
 //     }, 1000);
 // }
+let spawnFucktor = false
 
-let MonetkaStart = 1000;
-let timeMonet = setTimeout(function request() { 
-                MonetkaStart = 1000;
-                console.log('-------------------')
-                if(childParams === 4){                 
+let monetka = false
+ 
+
+
+
+
+    randomSpawn()
+    setInterval(()=>{
+        if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+            if(childParams === 4){
+                bomjSkelet.money += 1
                 randomSpawn()
-                if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
-                    bomjSkelet.money += 1
-                    // alert(bomjSkelet.money)
-                    MonetkaStart = 100
-                }
-                console.log('-------------------')}
+                console.log(bomjSkelet.money)
+            }
+        
             
-                timerId = setTimeout(request, MonetkaStart);
+        }
+    },1)
+
+
+
+
+
+// let MonetkaStart = 1000;
+// setInterval(()=>{
+    // randomSpawn()
+// },5000)
+// setInterval(()=>{
+//     if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+//         bomjSkelet.money += 1
+//         randomSpawn()
+//         console.log(bomjSkelet.money)
+        
+//     }
+// },1)
+
+// function monetSpawn(MonetkaStart){
+//     console.log(randomSpawnMonetka)
+//     setTimeout(function request(){
+//         randomSpawn()
+//         if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+//             bomjSkelet.money += 1
+//             monetSpawn(1)
+            
+//         }
+//         console.log(randomSpawnMonetka)
+//         timerId = setTimeout(request, MonetkaStart);    
+//     },MonetkaStart)
+// }
+
+// monetSpawn(MonetkaStart)
+    
+
+
+
+// let MonetkaStart = 1000;
+// let timeMonet = setTimeout(function request() { 
+//                 MonetkaStart = 1000;
+//                 console.log('-------------------')
+//                 if(childParams === 4){                 
+//                 randomSpawn()
+//                 if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
+//                     bomjSkelet.money += 1
+//                     // alert(bomjSkelet.money)
+//                     MonetkaStart = 100
+//                 }
+//                 console.log('-------------------')}
+            
+//                 timerId = setTimeout(request, MonetkaStart);
                 
               
-              },MonetkaStart);
+//               },MonetkaStart);
 // qweqwe();
 // randomSpawn()
 // setInterval(() => {
@@ -268,7 +399,7 @@ document.addEventListener('keydown', function(event) {
         //     bomjSkelet.x -= 1
         // }
           bomjSkelet.x -= 50
-      
+          
     }
   });
 
@@ -335,9 +466,20 @@ function walkLokationSrc(params) {
 
 let delayHolod = 600;
 let setTimeHolod = setTimeout(function request() {
-    holod += 1
-    blueWidth -= 2 
-    console.log(delayHolod)
+    if(fireFucktor === true){
+        delayHolod = 500
+        holod -= 2
+        blueWidth += 4
+        if(holod < 0 || blueWidth > 200 ){
+            holod = 0
+            blueWidth = 200 
+        }
+    }else{
+        holod += 1
+        blueWidth -= 2  
+    }
+  
+    
     if(holod === 100){
         alert('bomj pogip')
         setTimeHolod = NAN
@@ -346,14 +488,14 @@ let setTimeHolod = setTimeout(function request() {
       // увеличить интервал для следующего запроса
       delayHolod = 600
       
-      console.log(holod)
+      
       
     }
     if (childParams === 4) {
         // увеличить интервал для следующего запроса
         delayHolod = 100
         
-        console.log(holod)
+        
       }
 
       if (childParams === 0) {
@@ -378,12 +520,31 @@ let setTimeHolod = setTimeout(function request() {
 
 setInterval(() =>{
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
+    
+    if(childParams === 2){
+        ctx.drawImage(drova, 0, 580,400,400)
+        if(fireFucktor === true){
+            ctx.drawImage(fire, 0, 580,400,400)
+        }
+    }
+    
     ctx.drawImage(bomj, bomjSkelet.x, bomjSkelet.y,bomjSkelet.width,bomjSkelet.height)
-    if(childParams === 4){
-            ctx.drawImage(kopeyka,randomSpawnMonetka,300,100,80) 
-    } 
+    
+
+
+    if (spawnFucktor === true){
+        ctx.drawImage(kopeyka,randomSpawnMonetka,900,100,80) 
+        
+
+    }
     ctx.drawImage(blue, bomjSkelet.x + 50, 300, blueWidth, 10)
     walkLokationSrc(arrWindow)
+    if(childParams === 4){
+        spawnFucktor = true
+    }else{
+        spawnFucktor = false
+    }
+    
 
     
     
