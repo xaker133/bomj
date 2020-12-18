@@ -135,7 +135,7 @@ function fireHp(){
             clearInterval(minusFireHp)
             fireHpfuctor = 100
             fireFucktor = false
-            bomjSkelet.spichki -= 1
+            
         }
     },100)
     // if(fireFucktor === true){
