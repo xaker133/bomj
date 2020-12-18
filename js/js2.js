@@ -18,9 +18,7 @@ console.log(size.w)
 
 
 
-// if(h > 300 && h < 400) {
-//     alert(h)
-// }
+
 
 const windows = new Image();
 const bomj = new Image();
@@ -31,10 +29,31 @@ const kopeyka = new Image();
 const blue = new Image();
 const drova = new Image()
 const fire = new Image()
+const vodkaSrc = new Image()
+const spichkiSrc = new Image()
+const spichkiNumber = new Image()
+const vodkaNumber = new Image()
+ 
+spichkiNumber.src = ""
+vodkaNumber.src = ""
+let vodkaImage = true
+let spichkiImage = true
+vodkaSrc.src = "img/vodka.png"
+spichkiSrc.src ="img/spichki.png"
+
+const one = "img/1.png"
+const two = "img/2.png"
+const three = "img/3.png"
+const four = "img/4.png"
+const five = "img/5.png"
+
+
+const numbers = [one,two,three,four,five]
+
 
 
 let bomjSkelet = {
-    spichki:1,
+    spichki:2,
     vodka: 0,
     money: 0,
     width :400,
@@ -51,6 +70,30 @@ let bomjSkelet = {
     }
 
 }
+
+function numberItem(symbol){
+
+    if(symbol === 0){
+        spichkiNumber.src = ""
+    }
+
+    if(symbol === 1){
+        spichkiNumber.src = numbers[0]
+    }
+    if(symbol === 2){
+        spichkiNumber.src = numbers[1]
+    }
+    if(symbol === 3){
+        spichkiNumber.src = numbers[2]
+    }
+    if(symbol === 4){
+        spichkiNumber.src = numbers[3]
+    }
+    if(symbol === 5){
+        spichkiNumber.src = numbers[4]
+    }
+}
+
 
 
 drova.src = "img/drova.png"
@@ -72,36 +115,62 @@ let fireFucktor = false
 
 let spichki = false  // если true есть спичьки
 
-// document.addEventListener('keydown', function(event) {
-//     if (event.code == 'KeyF') {
-//         if(pizda === true){
-//             pizda = false
-
-//         }else{
-//             pizda = true
-//         }
-            
-
-      
-//     }
-//   });
-
- // если true есть спичьки
-
-bomjSkelet.spichki > 0 ? spichki = true : spichki = false
 
 
-if(spichki === true){
+
+let fireHpfuctor = 100
+function fireHp(){
+  
+
+
+
+    const minusFireHp = setInterval(() => {
+        if(fireFucktor === false){
+            clearInterval(minusFireHp)
+            fireHpfuctor = 100
+        }
+        fireHpfuctor -= 1
+        console.log(fireHpfuctor)
+        if(fireHpfuctor === 0){
+            clearInterval(minusFireHp)
+            fireHpfuctor = 100
+            fireFucktor = false
+            bomjSkelet.spichki -= 1
+        }
+    },100)
+    // if(fireFucktor === true){
+    //     fireHp()
+    // }
+}
+
+
+
+
     document.addEventListener('keydown', function(event) {
         if (event.code == 'KeyE') {
-            if(fireFucktor === true){
-                fireFucktor = false
-
-                bomjSkelet.spichki - 1
+            bomjSkelet.spichki > 0  ? spichki = true : spichki = false
+            if(spichki === true && childParams === 2){ 
+               
+                if(fireFucktor === true){
+                    
+                    fireFucktor = false
+                   
+                    console.log(bomjSkelet.spichki,spichki)
+                }
+                else{
+                    fireFucktor =  true 
+                    bomjSkelet.spichki -= 1 
+                }
+                   
+                        
             }
-            else
-                fireFucktor =  true              
-        }
+            if(spichki === false && childParams === 2){
+                fireFucktor =  false  
+            }
+            fireHp()
+            }
+
+            
       });       
             
     function fireStart(){
@@ -114,11 +183,12 @@ if(spichki === true){
                 clearInterval(p)
                 fireParams = 0
                 fireStart()
+                
             }
         },150)
     } 
     fireStart()
-}
+
 
 blue.src = "img/blue.jpg"
 bomj.src = "img/bomj.png"
@@ -147,14 +217,13 @@ let walk = 0
 
 
 let randomSpawnMonetka = 0
-// setInterval(() =>{
-//     randomSpawnMonetka = 0
-// },500)
-function leftSpawn(min, max) { // рандомно выдает число слева от бомжа 
+
+
+function leftSpawn(min, max) { 
     min = Math.ceil(min);
     max = Math.floor(max);
     randomSpawnMonetka = Math.floor(Math.random() * (max - min + 1)) + min 
-    //Максимум и минимум включаются
+
   
   }
 
@@ -163,11 +232,8 @@ function leftSpawn(min, max) { // рандомно выдает число сл�
     max = Math.floor(max);
     randomSpawnMonetka =  Math.floor(Math.random() * (max - min + 1)) + min 
 
-     //Максимум и минимум включаются
   }
 
-// if(randomSpawnMonetka === bomjSkelet.x + 50 || bomjSkelet.x + 50 * 2 || bomjSkelet.x + 50 * 3 || bomjSkelet.x + 50 * 4 || 
-//     bomjSkelet.x + 50 * 5 || bomjSkelet.x + 50 * 6 || bomjSkelet.x + 50 * 7 || bomjSkelet.x + 50 * 8)  
 
 const proverka = 50 
 
@@ -176,7 +242,6 @@ if (bomjSkelet.x === proverka ){
 }
 
 
-// выпадает по всей длине а если монетка > bomjSkelet.x || < bomjSkelet.x + bomjSkelet.wight 
 function randomSpawn(){ // рандомно выдает число слева от бомжа
         let random = Math.floor(Math.random() * 100)
         
@@ -209,62 +274,12 @@ let yy = undefined
 setInterval(() => {
     xx = bomjSkelet.x // / 50
     yy = bomjSkelet.x + bomjSkelet.width
-    // if(randomSpawnMonetka === xx || yy){
-    //     bomjSkelet.money += 1
-    //     MonetkaStart = 0
-    //     alert('сработало')
-    // } // / 50
+   
+
+
 }, 1);
-// let o = 0
-// считает то место где он был 
-// 
-
-// let monetkaDel = MonetkaStart / 50
-
-// if(randomSpawnMonetka === bomjSkelet.x + 50 || bomjSkelet.x + 50 * 2 || bomjSkelet.x + 50 * 3 || bomjSkelet.x + 50 * 4 || 
-//     bomjSkelet.x + 50 * 5 || bomjSkelet.x + 50 * 6 || bomjSkelet.x + 50 * 7 || bomjSkelet.x + 50 * 8){
-//         bomjSkelet.money += 1
-//         MonetkaStart = 0
-// //     }
-// if(randomSpawnMonetka === xx || yy){
-//     bomjSkelet.money += 1
-//     MonetkaStart = 0
-//     alert('сработало')
-// }
-
-// setInterval(() =>{
-//     if(randomSpawnMonetka === 50 ){
-//         bomjSkelet.money += 1
-//         console.log(xx)
-//         console.log(randomSpawnMonetka)
-//         // MonetkaStart = 0
-//         // alert('сработало')
-//         MonetkaStart = 1
-//         alert('ссс')}
-// },1)
 
 
-// const intervalMonetka = setInterval(() =>{
-//     if(childParams === 4){
-//         randomSpawn()
-//         if(randomSpawnMonetka === 50 ){
-//             clearInterval(intervalMonetka)
-//             bomjSkelet.money += 1
-//             intervalMonetka()
-//         }
-        
-//     }
-// },500)
-
-// function qweqwe() {
-//     if(randomSpawnMonetka === 50){
-//         clearInterval(intervalMonetka);
-//     }
-
-//     intervalMonetka = setInterval(function() {
-//         randomSpawn()
-//     }, 1000);
-// }
 let spawnFucktor = false
 
 let monetka = false
@@ -290,114 +305,9 @@ let monetka = false
 
 
 
-// let MonetkaStart = 1000;
-// setInterval(()=>{
-    // randomSpawn()
-// },5000)
-// setInterval(()=>{
-//     if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
-//         bomjSkelet.money += 1
-//         randomSpawn()
-//         console.log(bomjSkelet.money)
-        
-//     }
-// },1)
-
-// function monetSpawn(MonetkaStart){
-//     console.log(randomSpawnMonetka)
-//     setTimeout(function request(){
-//         randomSpawn()
-//         if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
-//             bomjSkelet.money += 1
-//             monetSpawn(1)
-            
-//         }
-//         console.log(randomSpawnMonetka)
-//         timerId = setTimeout(request, MonetkaStart);    
-//     },MonetkaStart)
-// }
-
-// monetSpawn(MonetkaStart)
-    
-
-
-
-// let MonetkaStart = 1000;
-// let timeMonet = setTimeout(function request() { 
-//                 MonetkaStart = 1000;
-//                 console.log('-------------------')
-//                 if(childParams === 4){                 
-//                 randomSpawn()
-//                 if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
-//                     bomjSkelet.money += 1
-//                     // alert(bomjSkelet.money)
-//                     MonetkaStart = 100
-//                 }
-//                 console.log('-------------------')}
-            
-//                 timerId = setTimeout(request, MonetkaStart);
-                
-              
-//               },MonetkaStart);
-// qweqwe();
-// randomSpawn()
-// setInterval(() => {
-//     randomSpawn()
-//     if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
-//         randomSpawn()
-//         bomjSkelet.money += 1
-//         console.log(bomjSkelet.money)
-//     }
-// }, 500);
-
-// function randomMonet(){
-//     if(randomSpawnMonetka > xx && randomSpawnMonetka < yy){
-//         randomSpawn()
-//         alert('овечка')
-//     }
-//     setTimeout(function request() {  
-//             MonetkaStart = 2000
-//             randomSpawn()
-     
-        
-//             timerId = setTimeout(request, MonetkaStart);
-          
-//           },MonetkaStart);
-// }
-
-// randomMonet()
-// let locationMonetkaStart = setTimeout(function request() {
-//     // if(o === 1){
-//     //     MonetkaStart = 100
-//     //     o = 0
-//     // }
-
-
-//     if(childParams === 4){
-       
-//     MonetkaStart = 2000
-//     randomSpawn()
-//     console.log(randomSpawnMonetka)
-//     console.log(`${bomjSkelet.money} у вас денег`)
-//     // if (monetkaUmn > xx, monetkaUmn < yy ){
-//     //     bomjSkelet.money += 1
-//     //     randomSpawn()
-//     // }
-
-//     console.log(`${bomjSkelet.x} левая граница + ${bomjSkelet.x + bomjSkelet.width} правая граница  + выпало ${randomSpawnMonetka}`)
-//     }
-
-
-//     timerId = setTimeout(request, MonetkaStart);
-  
-//   }, MonetkaStart);
-
-
 document.addEventListener('keydown', function(event) {
     if (event.code == 'KeyA') {
-        // for(let i = 0;i < 50; i++){
-        //     bomjSkelet.x -= 1
-        // }
+
           bomjSkelet.x -= 50
           
     }
@@ -406,9 +316,7 @@ document.addEventListener('keydown', function(event) {
   
 document.addEventListener('keydown', function(event) {
     if (event.code == 'KeyD') {
-        // for(let i = 0;i < 50; i++){
-        //     bomjSkelet.x += 1
-        // }
+ 
         bomjSkelet.x += 50
     }
   });
@@ -466,7 +374,7 @@ function walkLokationSrc(params) {
 
 let delayHolod = 600;
 let setTimeHolod = setTimeout(function request() {
-    if(fireFucktor === true){
+    if(fireFucktor === true && childParams === 2){
         delayHolod = 500
         holod -= 2
         blueWidth += 4
@@ -545,13 +453,32 @@ setInterval(() =>{
         spawnFucktor = false
     }
     
+    if(vodkaImage === true){
+        ctx.drawImage(vodkaSrc,bomjSkelet.x +100,200,50,80)
+    }
+  
+    if(spichkiImage === true){
+        ctx.drawImage(spichkiSrc,bomjSkelet.x +50,200,50,80)
+    }
 
-    
+    if(bomjSkelet.spichki <= 0){
+        spichkiImage = false
+    }else{
+        spichkiImage = true
+    }
+    numberItem(bomjSkelet.spichki)
+    ctx.drawImage(spichkiNumber,bomjSkelet.x,200,50,80,)
     
 },1)
 
 
+
+
+
 window.onload = () => {  
     ctx.drawImage(windows, 0, 0,window.innerWidth,window.innerHeight)
-    ctx.drawImage(bomj, bomjSkelet.x, bomjSkelet.y,bomjSkelet.width,bomjSkelet.height) 
+    ctx.drawImage(bomj, bomjSkelet.x, bomjSkelet.y,bomjSkelet.width,bomjSkelet.height)
+     
  }
+
+
